@@ -1,0 +1,39 @@
+{
+	"name": "use-sui-zklogin",
+	"version": "0.0.1",
+	"description": "A React hook and methods for seamless zkLogin integration on Sui. Simplifies authentication workflows by managing account retrieval, signature generation, and address resolution with zero-knowledge proofs.",
+	"main": "dist/index.js",
+	"module": "dist/index.esm.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsup src/index.tsx --dts --format esm,cjs --out-dir dist",
+		"lint": "eslint src --ext .ts,.tsx",
+		"prepublishOnly": "npm run build"
+	},
+	"peerDependencies": {
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0"
+	},
+	"devDependencies": {
+		"typescript": "^5.0.0",
+		"@types/react": "^18.0.0",
+		"@types/react-dom": "^18.0.0"
+	},
+	"keywords": [
+		"react",
+		"component-library",
+		"typescript",
+		"hook",
+		"zk-login"
+	],
+	"author": "Simon Patole",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pixelbrawlgames/use-sui-zklogin.git"
+	}
+}

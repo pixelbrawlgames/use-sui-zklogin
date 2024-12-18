@@ -1,0 +1,13 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"moduleResolution": "node",
+		"baseUrl": ".", // This ensures relative paths are resolved from the root directory
+		"paths": {
+			"use-sui-zklogin": ["../package/dist"]
+		},
+		"jsx": "react-jsx",
+		"strict": true
+	},
+	"include": ["src"]
+}

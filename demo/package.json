@@ -1,0 +1,23 @@
+{
+	"name": "use-sui-zklogin-demo",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"use-sui-zklogin": "file:../package"
+	},
+	"devDependencies": {
+		"vite": "^4.0.0",
+		"@vitejs/plugin-react": "^4.1.0",
+		"typescript": "^5.0.0",
+		"@types/react": "^18.0.0",
+		"@types/react-dom": "^18.0.0",
+		"@types/css-modules": "^1.0.3"
+	}
+}
