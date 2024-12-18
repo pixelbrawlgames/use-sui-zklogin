@@ -3,15 +3,29 @@
 	"version": "0.0.1",
 	"description": "A React hook and methods for seamless zkLogin integration on Sui. Simplifies authentication workflows by managing account retrieval, signature generation, and address resolution with zero-knowledge proofs.",
 	"main": "dist/index.js",
-	"module": "dist/index.esm.js",
+	"module": "dist/index.mjs",
 	"types": "dist/index.d.ts",
+	"typesVersions": {
+		"*": {
+			"dist/index.d.ts": [
+				"dist/index.d.ts",
+				"dist/index.d.mts"
+			]
+		}
+	},
+	"exports": {
+		".": {
+			"require": "./dist/index.js",
+			"import": "./dist/index.mjs"
+		}
+	},
 	"files": [
 		"dist",
 		"README.md",
 		"LICENSE"
 	],
 	"scripts": {
-		"build": "tsup src/index.ts --dts --format esm,cjs --out-dir dist && cp ../LICENSE ../README.md .",
+		"build": "tsup src/index.tsx --dts --format esm,cjs --out-dir dist --clean --minify && cp ../LICENSE ../README.md .",
 		"lint": "eslint src --ext .ts,.tsx",
 		"prepublishOnly": "npm run build"
 	},

@@ -1,6 +1,0 @@
-*.tsx
-src/
-demo/
-*.config.js
-node_modules/
-dist/
