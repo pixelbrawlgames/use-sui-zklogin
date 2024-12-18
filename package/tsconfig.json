@@ -1,14 +1,18 @@
 {
 	"compilerOptions": {
-		"target": "esnext",
-		"module": "esnext",
+		"target": "ES2020",
+		"lib": ["ES2020", "DOM"],
+		"module": "ESNext",
 		"moduleResolution": "node",
-		"jsx": "react-jsx", // Enable JSX transformation
+		"jsx": "react-jsx",
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": false,
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true
 	},
-	"include": ["src/**/*"], // Ensure this is the correct path to your TypeScript files
+	"include": ["src/**/*"],
 	"exclude": ["node_modules"]
 }

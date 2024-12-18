@@ -10,13 +10,15 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsup src/index.tsx --dts --format esm,cjs --out-dir dist",
+		"build": "tsup src/index.ts --dts --format esm,cjs --out-dir dist",
 		"lint": "eslint src --ext .ts,.tsx",
 		"prepublishOnly": "npm run build"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0",
-		"react-dom": "^18.0.0"
+		"react-dom": "^18.0.0",
+		"@mysten/sui": "^1.17.0",
+		"jwt-decode": "^4.0.0"
 	},
 	"devDependencies": {
 		"typescript": "^5.0.0",
