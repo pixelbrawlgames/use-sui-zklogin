@@ -9,7 +9,7 @@
 		rgba(0, 0, 0, 0.1) 0px 4px 6px -4px;
 }
 .head {
-	padding: 1.5rem 1.5rem 0.5rem;
+	padding: 1.5rem 1.5rem 1rem;
 }
 .title {
 	letter-spacing: -0.025em;
@@ -25,9 +25,11 @@
 	gap: 16px;
 }
 .provider {
-	color: #4b5563;
-	color: green;
 	background-color: #dcfce7;
+	color: green;
+	width: fit-content;
+	padding: 0.25rem 0.75rem;
+	border-radius: 16px;
 }
 .row {
 	display: flex;

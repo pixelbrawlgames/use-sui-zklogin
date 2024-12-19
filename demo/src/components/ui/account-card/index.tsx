@@ -16,7 +16,9 @@ const AccountCard: FC<P> = ({ account }) => {
 			</div>
 			<div className={styles.content}>
 				<div className={styles.row}>
-					<span>{`${account.provider.slice(0, 1).toUpperCase()}${account.provider.slice(1)}`}</span>
+					<span
+						className={styles.provider}
+					>{`${account.provider.slice(0, 1).toUpperCase()}${account.provider.slice(1)}`}</span>
 				</div>
 				<div className={styles.row}>
 					<div className={styles.rowLabel}>Address</div>
