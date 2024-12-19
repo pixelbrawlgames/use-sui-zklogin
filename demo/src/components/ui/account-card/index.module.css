@@ -1,25 +1,72 @@
 .accountCard {
-	background-color: #000;
-	color: #fff;
-	flex-direction: column;
-	padding: 15px;
-	display: flex;
-	border-radius: 8px;
-	gap: 15px;
+	width: 100%;
+	border-radius: 0.75rem;
+	background-color: #fff;
+	box-shadow:
+		rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+		rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+		rgba(0, 0, 0, 0.1) 0px 4px 6px -4px;
 }
-.info {
-	text-align: left;
+.head {
+	padding: 1.5rem 1.5rem 0.5rem;
+}
+.title {
+	letter-spacing: -0.025em;
+	line-height: 1;
+	color: #374151;
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+.content {
+	padding: 0 1.5rem 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+.provider {
+	color: #4b5563;
+	color: green;
+	background-color: #dcfce7;
+}
+.row {
 	display: flex;
 	gap: 5px;
 	flex-direction: column;
 }
-.clearBtn {
-	background-color: red;
+.rowLabel {
+	font-size: 0.875rem;
+	color: #6b7280;
+}
+.rowValue {
+	display: flex;
+	align-items: center;
 	width: fit-content;
-	padding: 5px 10px;
-	border-radius: 4px;
-	margin: 0 auto;
+}
+.address {
+	font-size: 1rem;
+	color: #2563eb;
+	text-decoration: none;
 	cursor: pointer;
+}
+.id {
+	font-size: 0.875rem;
+}
+.btn {
+	height: 2rem;
+	font-size: 0.75rem;
+	font-weight: 500;
 	color: #fff;
-	font-weight: 600;
+	padding: 0 0.75rem 0;
+	border-radius: 4px;
+	background-color: #ef4444;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	-webkit-transition: background-color 0.1s linear;
+	transition: background-color 0.1s linear;
+}
+.btn:hover {
+	background-color: #ef4444e6;
 }

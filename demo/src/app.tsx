@@ -7,6 +7,7 @@ import { useSuiClient } from '@mysten/dapp-kit';
 import GoogleButton from './components/ui/google-btn';
 import Loader from './components/ui/loader';
 import AccountCard from './components/ui/account-card';
+import { IconTrash } from './components/ui/icons';
 
 import styles from './app.module.css';
 
@@ -55,7 +56,10 @@ const App = () => {
 			<Loader loading={!isLoaded || loading} />
 			<div className={styles.header}>
 				<h1 className={styles.title}>useSuiZkLogin Demo</h1>
-				<h2 className={styles.subtitle}>devNet</h2>
+				<div className={styles.network}>
+					<div className={styles.status} />
+					<span className={styles.label}>devNet</span>
+				</div>
 			</div>
 			<div className={styles.content}>
 				<div className={styles.box}>
@@ -67,8 +71,9 @@ const App = () => {
 					))}
 				</div>
 				{accounts.length ? (
-					<div className={styles.clearBtn} onClick={signOut}>
-						Clear All
+					<div className={styles.btn} onClick={signOut}>
+						<IconTrash style={{ marginRight: '0.5rem' }} />
+						Clear All Data
 					</div>
 				) : null}
 			</div>

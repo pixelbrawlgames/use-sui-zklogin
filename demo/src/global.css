@@ -2,7 +2,7 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: ui-sans-serif, system-ui, sans-serif;
 }
 
 html,
@@ -12,8 +12,12 @@ body,
 	height: 100%;
 }
 
+body {
+	background-image: linear-gradient(rgb(249, 250, 251), rgb(243, 244, 246));
+}
+
 a {
-	color: #7474ff;
-	text-decoration: underline;
+	color: #2563eb;
+	text-decoration: none;
 	cursor: pointer;
 }
