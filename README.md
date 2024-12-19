@@ -1,10 +1,8 @@
 # use-sui-zklogin
 
-React hook for seamless zkLogin integration on Sui. Simplifies authentication workflows by managing account retrieval, signature generation, and address resolution with zero-knowledge (zk) proofs.
+React hook for seamless [zkLogin](https://docs.sui.io/concepts/cryptography/zklogin) integration on Sui. Simplifies authentication workflows by managing account retrieval, signature generation, and address resolution with zero-knowledge (zk) proofs.
 
-You can explore the live demo [here](https://pixelbrawlgames.github.io/use-sui-zklogin).
-
-This project is based on the following demos: ([Demo A](https://github.com/juzybits/polymedia-zklogin-demo), [Demo B](https://github.com/jovicheng/sui-zklogin-demo)), and the official [documentation](https://docs.sui.io/concepts/cryptography/zklogin).
+Live demo available [here](https://pixelbrawlgames.github.io/use-sui-zklogin).
 
 ### Table of Contents
 
@@ -15,6 +13,7 @@ This project is based on the following demos: ([Demo A](https://github.com/juzyb
    - [Error handling](#errors)
    - [Types](#types)
 4. [Resources](#resources)
+5. [About](#about)
 
 <a name="install"></a>
 
@@ -297,14 +296,8 @@ CompleteZkLoginReturn = {
 
 ## Resources
 
-### Docs
+This project is based on the following demos: ([Demo A](https://github.com/juzybits/polymedia-zklogin-demo), [Demo B](https://github.com/jovicheng/sui-zklogin-demo)), and the official [documentation](https://docs.sui.io/concepts/cryptography/zklogin).
 
-Official documentation: https://docs.sui.io/concepts/cryptography/zklogin
+## About
 
-### Examples
-
-https://github.com/juzybits/polymedia-zklogin-demo
-
-https://github.com/jovicheng/sui-zklogin-demo
-
-
+If this library is useful to you, give https://pixelbrawlgames.com a try. Any donation to `0x66aaa7eac8a801e6eab665cb9b9127e4f41bd10455606091088235f89cbb149b` is also appreciated :) 
