@@ -10,10 +10,12 @@ export interface CompleteZkLoginParams {
 	generateSalt: (options?: any) => Promise<{ salt: number }>; // Function to generate a unique user salt
 }
 
-type CompleteZkLoginReturn = {
-	accounts: AccountData[];
-	address: string;
-};
+type CompleteZkLoginReturn =
+	| {
+			address: string;
+			accounts: AccountData[];
+	  }
+	| undefined;
 
 /**
  * Completes the Zero-Knowledge (ZK) Login process for Sui blockchain authentication
@@ -25,14 +27,19 @@ type CompleteZkLoginReturn = {
  * 4. Generate Zero-Knowledge proofs
  * 5. Save user account information
  *
- * @param params - Configuration and salt generation parameters
- * @returns Object containing saved accounts and user address, or undefined
- * @throws {Error} If the login completion process fails
+ * @param {string} urlZkProver - The URL of the Zero-Knowledge proof generation service
+ * @param {() => Promise<{salt: number}>} generateSalt - A function to generate a unique user salt. This function accepts an optional parameter and returns a Promise that resolves to an object with a `salt` field of type `number`.
+ *
+ * @returns {UseZkLoginReturn}
+ *   - address - The current user address.
+ *   - accounts - Array of account data associated with the user.
+ *
+ *  @throws {Error} If the login completion process fails
  */
 export const completeZkLogin = async ({
 	urlZkProver,
 	generateSalt,
-}: CompleteZkLoginParams): Promise<CompleteZkLoginReturn | undefined> => {
+}: CompleteZkLoginParams): Promise<CompleteZkLoginReturn> => {
 	try {
 		// Retrieve and decode the JWT token obtained during the initial login process
 		// Reference: https://docs.sui.io/concepts/cryptography/zklogin#decoding-jwt

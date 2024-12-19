@@ -1,6 +1,6 @@
 export { beginZkLogin } from './begin-zk-login';
 export { completeZkLogin } from './complete-zk-login';
-export * from './models';
+export { OpenIdProvider, ProviderConfig, AccountData } from './models';
 
 // Import necessary dependencies and types
 import { useEffect, useState } from 'react';
@@ -68,9 +68,13 @@ type UseZkLoginReturn = {
 };
 /**
  * Custom hook for managing ZK login state
- * @param urlZkProver - The URL of the Zero-Knowledge proof generation service
- * @param generateSalt - A function to generate a unique user salt. This function accepts an optional parameter and returns a Promise that resolves to an object with a `salt` field of type `number`.
- * @returns Object with login state and account information
+ * @param {string} urlZkProver - The URL of the Zero-Knowledge proof generation service
+ * @param {() => Promise<{salt: number}>} generateSalt - A function to generate a unique user salt. This function accepts an optional parameter and returns a Promise that resolves to an object with a `salt` field of type `number`.
+ *
+ * @returns {UseZkLoginReturn}
+ *   - isLoaded - Indicates whether the login state is loaded.
+ *   - address - The current user address.
+ *   - accounts - Array of account data associated with the user.
  */
 export const useZkLogin = ({
 	urlZkProver,

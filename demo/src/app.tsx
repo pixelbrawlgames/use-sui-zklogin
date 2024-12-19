@@ -42,7 +42,8 @@ const App = () => {
 		generateSalt: () =>
 			new Promise<{ salt: number }>((resolve) => resolve({ salt: 123456789 })),
 	});
-	console.log(isLoaded, address, accounts, 'check');
+
+	console.log('Status:', isLoaded, address, accounts);
 
 	const handleZkLogin = async (provider: OpenIdProvider) => {
 		setLoading(true);

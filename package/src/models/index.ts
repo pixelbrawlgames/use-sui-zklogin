@@ -25,7 +25,7 @@ export type BlockchainAddress = `0x${string}`;
 /**
  * Structure for Zero-Knowledge proofs
  */
-export interface ZKProofs {
+interface ZKProofs {
 	/** The generated proof string */
 	proof: string;
 	/** Array of public inputs for verification */

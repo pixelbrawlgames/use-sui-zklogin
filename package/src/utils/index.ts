@@ -11,7 +11,6 @@ export const getJWT = () => {
 	const jwt = urlParams.get('id_token') || '';
 	let jwtPayload: TJwtPayload | null = null;
 	if (jwt) {
-		// remove the URL fragment
 		window.history.replaceState(null, '', window.location.pathname);
 		jwtPayload = jwtDecode(jwt);
 	}

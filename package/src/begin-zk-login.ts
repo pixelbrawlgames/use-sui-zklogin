@@ -5,12 +5,12 @@ import { type SuiClient } from '@mysten/sui/dist/cjs/client';
 
 // Import custom types and utilities
 import { OpenIdProvider, ProviderConfig, OpenIdAuthParams } from './models';
-import { MAX_EPOCH } from './const';
+import {
+	DEFAULT_MAX_EPOCH,
+	DEFAULT_OAUTH_RESPONSE_TYPE,
+	DEFAULT_OAUTH_SCOPE,
+} from './const';
 import * as utils from './utils';
-
-// Default OAuth parameters
-const DEFAULT_RESPONSE_TYPE = 'id_token';
-const DEFAULT_SCOPE = 'openid';
 
 /**
  * Options for initiating ZK Login process
@@ -20,6 +20,7 @@ interface BeginZkLoginParams {
 	provider: OpenIdProvider; // Selected OpenID identity provider
 	providersConfig: ProviderConfig; // Configuration map for OpenID providers
 	authParams?: OpenIdAuthParams; // Additional OAuth parameters
+	maxEpoch?: number; // Maximum epoch number for time-based validation
 }
 
 /**
@@ -31,10 +32,11 @@ interface BeginZkLoginParams {
  * 3. Saves setup data for later completion of the login process
  * 4. Redirects to the selected OpenID provider for authentication
  *
- * @param suiClient - Sui blockchain client for system state queries
- * @param provider - Selected OpenID identity provider
- * @param providersConfig - Configuration map for OpenID providers
- * @param authParams - Additional OAuth parameters
+ * @param {SuiClient} suiClient - Sui blockchain client for system state queries
+ * @param {OpenIdProvider} provider - Selected OpenID identity provider
+ * @param {ProviderConfig} providersConfig - Configuration map for OpenID providers
+ * @param {OpenIdAuthParams} [authParams] - Additional OAuth parameters
+ * @param {number} [maxEpoch] - Maximum epoch number for time-based validation
  * @throws {Error} If the login initiation process fails
  */
 export const beginZkLogin = async ({
@@ -42,6 +44,7 @@ export const beginZkLogin = async ({
 	provider,
 	providersConfig,
 	authParams,
+	maxEpoch = DEFAULT_MAX_EPOCH,
 }: BeginZkLoginParams) => {
 	// Validate required input parameters
 	if (!suiClient || !provider || !providersConfig) {
@@ -51,7 +54,7 @@ export const beginZkLogin = async ({
 	try {
 		// Retrieve the current Sui blockchain epoch and calculate the maximum valid epoch
 		const { epoch } = await suiClient.getLatestSuiSystemState();
-		const maxEpoch = Number(epoch) + MAX_EPOCH; // Ephemeral key validity period
+		const maxValidEpoch = Number(epoch) + maxEpoch; // Ephemeral key validity period
 
 		// Generate cryptographic components for ZK Login
 		const ephemeralKeyPair = new Ed25519Keypair(); // Temporary keypair for this login session
@@ -60,14 +63,14 @@ export const beginZkLogin = async ({
 		// Create a unique nonce that binds the ephemeral public key and epoch
 		const nonce = generateNonce(
 			ephemeralKeyPair.getPublicKey(),
-			maxEpoch,
+			maxValidEpoch,
 			randomness
 		);
 
 		// Persist login setup data in session storage for use after OAuth redirect
 		utils.session.saveSetupData({
 			provider,
-			maxEpoch,
+			maxEpoch: maxValidEpoch,
 			randomness: randomness.toString(),
 			ephemeralPrivateKey: ephemeralKeyPair.getSecretKey(),
 		});
@@ -75,8 +78,8 @@ export const beginZkLogin = async ({
 		// Prepare OAuth authentication parameters with sensible defaults
 		const urlParamsBase = {
 			redirect_uri: authParams?.redirect_uri || window.location.origin,
-			response_type: authParams?.response_type || DEFAULT_RESPONSE_TYPE,
-			scope: authParams?.scope || DEFAULT_SCOPE,
+			response_type: authParams?.response_type || DEFAULT_OAUTH_RESPONSE_TYPE,
+			scope: authParams?.scope || DEFAULT_OAUTH_SCOPE,
 			nonce,
 		};
 
