@@ -11,12 +11,6 @@ import { JwtPayload } from 'jwt-decode';
 export type ResponseType = 'code' | 'token' | 'id_token';
 
 /**
- * Type for validating URLs
- * @pattern ^https?:\/\/.+
- */
-export type ValidUrl = `https://${string}` | `http://${string}`;
-
-/**
  * Type for blockchain addresses
  * @pattern ^0x[a-fA-F0-9]{64}$
  */
@@ -53,7 +47,7 @@ export type OpenIdProvider =
  */
 export interface OpenIdConfig {
 	/** Authorization endpoint URL for the OAuth 2.0 provider */
-	authUrl: ValidUrl;
+	authUrl: string;
 	/** OAuth 2.0 client identifier issued by the provider */
 	clientId: string;
 	/** Optional additional parameters to include in the authorization URL */
@@ -66,7 +60,7 @@ export interface OpenIdConfig {
  */
 export interface OpenIdAuthParams {
 	/** URI where the provider should redirect after authentication */
-	redirect_uri?: ValidUrl;
+	redirect_uri?: string;
 	/** OAuth 2.0 response type */
 	response_type?: ResponseType;
 	/** Space-separated list of OAuth 2.0 scopes */

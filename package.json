@@ -8,8 +8,8 @@
 		"build:demo": "vite build demo",
 		"start:demo": "vite preview demo",
 		"prepare": "npx husky install",
-		"predeploy": "npm --prefix ./demo npm run build",
-		"deploy": "gh-pages -d demo/dist"
+		"predeploy": "npm --prefix ./demo run build",
+		"deploy-page": "gh-pages -d demo/dist"
 	},
 	"workspaces": [
 		"package",

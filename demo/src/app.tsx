@@ -51,6 +51,9 @@ const App = () => {
 			suiClient,
 			provider,
 			providersConfig,
+			authParams: {
+				redirect_uri: window.location.href,
+			},
 		});
 	};
 
