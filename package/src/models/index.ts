@@ -25,7 +25,7 @@ export type BlockchainAddress = `0x${string}`;
 /**
  * Structure for Zero-Knowledge proofs
  */
-interface ZKProofs {
+export interface ZKProofs {
 	/** The generated proof string */
 	proof: string;
 	/** Array of public inputs for verification */
@@ -51,27 +51,27 @@ export type OpenIdProvider =
  * Configuration required for each OpenID provider.
  * Contains the essential OAuth 2.0 client configuration parameters.
  */
-export type OpenIdConfig = {
+export interface OpenIdConfig {
 	/** Authorization endpoint URL for the OAuth 2.0 provider */
 	authUrl: ValidUrl;
 	/** OAuth 2.0 client identifier issued by the provider */
 	clientId: string;
 	/** Optional additional parameters to include in the authorization URL */
 	extraParams?: Record<string, string>;
-};
+}
 
 /**
  * Optional parameters for the OAuth 2.0 authorization request.
  * These parameters customize the authentication flow.
  */
-export type OpenIdAuthParams = {
+export interface OpenIdAuthParams {
 	/** URI where the provider should redirect after authentication */
 	redirect_uri?: ValidUrl;
 	/** OAuth 2.0 response type */
 	response_type?: ResponseType;
 	/** Space-separated list of OAuth 2.0 scopes */
 	scope?: string;
-};
+}
 
 /**
  * Configuration mapping for all supported providers.
@@ -82,7 +82,7 @@ export type ProviderConfig = Partial<Record<OpenIdProvider, OpenIdConfig>>;
  * Data structure for the initial authentication setup.
  * Contains the necessary information for establishing a secure session.
  */
-export type SetupData = {
+export interface SetupData {
 	/** Selected OpenID provider for authentication */
 	provider: OpenIdProvider;
 	/** Maximum epoch number for time-based validation */
@@ -91,13 +91,13 @@ export type SetupData = {
 	randomness: string;
 	/** Temporary private key for the session (32 bytes hex) */
 	ephemeralPrivateKey: string;
-};
+}
 
 /**
  * Comprehensive account data including authentication and user information.
  * Stores both OAuth-related data and blockchain-specific information.
  */
-export type AccountData = {
+export interface AccountData {
 	/** OpenID provider used for authentication */
 	provider: OpenIdProvider;
 	/** User's blockchain address */
@@ -118,7 +118,7 @@ export type AccountData = {
 	email?: string;
 	/** Optional email verification status */
 	email_verified?: boolean;
-};
+}
 
 /**
  * Common OAuth 2.0 scope values
@@ -134,9 +134,9 @@ export const OAUTH_SCOPES = {
  * Extended JWT payload that includes optional email-related claims.
  * Inherits from the base JwtPayload type and adds email fields.
  */
-export type TJwtPayload = JwtPayload & {
+export interface TJwtPayload extends JwtPayload {
 	/** Optional user email address from the JWT */
 	email?: string;
 	/** Optional email verification status from the JWT */
 	email_verified?: boolean;
-};
+}

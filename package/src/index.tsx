@@ -61,11 +61,11 @@ const fetchZkLoginData = async (options: CompleteZkLoginParams) => {
 	}
 };
 
-type UseZkLoginReturn = {
+interface UseZkLoginReturn {
 	isLoaded: boolean;
 	address: string;
 	accounts: AccountData[];
-};
+}
 /**
  * Custom hook for managing ZK login state
  * @param {string} urlZkProver - The URL of the Zero-Knowledge proof generation service
