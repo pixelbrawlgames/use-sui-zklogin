@@ -3,7 +3,7 @@
 	"private": true,
 	"version": "1.0.0",
 	"scripts": {
-		"build:package": "tsup package/src/index.ts --dts --format esm,cjs --out-dir package/dist",
+		"build:package": "npm --prefix ./package run build",
 		"dev:demo": "vite demo",
 		"build:demo": "vite build demo",
 		"start:demo": "vite preview demo",

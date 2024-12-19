@@ -29,11 +29,13 @@
 		"lint": "eslint src --ext .ts,.tsx",
 		"prepublishOnly": "npm run build"
 	},
-	"peerDependencies": {
-		"react": "^18.0.0",
-		"react-dom": "^18.0.0",
+	"dependencies": {
 		"@mysten/sui": "^1.17.0",
 		"jwt-decode": "^4.0.0"
+	},
+	"peerDependencies": {
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0"
 	},
 	"devDependencies": {
 		"typescript": "^5.0.0",
@@ -45,7 +47,9 @@
 		"component-library",
 		"typescript",
 		"hook",
-		"zk-login"
+		"zk",
+		"login",
+		"sui"
 	],
 	"author": "Simon Patole",
 	"license": "Apache-2.0",
