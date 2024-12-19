@@ -1,6 +1,8 @@
 # use-sui-zklogin
 
-React hook for seamless zkLogin integration on Sui. Simplifies authentication workflows by managing account retrieval, signature generation, and address resolution with zero-knowledge proofs.
+A custom React hook for seamless zkLogin integration on Sui. Simplifies authentication workflows by managing account retrieval, signature generation, and address resolution with zero-knowledge (zk) proofs.
+
+This project is built upon the following demos: ([Demo A](https://github.com/juzybits/polymedia-zklogin-demo), [Demo B](https://github.com/jovicheng/sui-zklogin-demo)), and the official [documentation](https://docs.sui.io/concepts/cryptography/zklogin).
 
 ## Table of Contents
 
@@ -10,10 +12,11 @@ React hook for seamless zkLogin integration on Sui. Simplifies authentication wo
    - [Functions](#functions)
    - [Error handling](#errors)
    - [Types](#types)
+4. [Resources](#resources)
 
 <a name="install"></a>
 
-### Installation
+# Installation
 
 ```cmd
 npm install use-sui-zklogin @mysten/sui jwt-decode
@@ -21,7 +24,7 @@ npm install use-sui-zklogin @mysten/sui jwt-decode
 
 <a name="usage"></a>
 
-### Usage
+# Usage
 
 ```Javascript
 import { useZkLogin, beginZkLogin } from 'use-sui-zklogin';
@@ -125,10 +128,10 @@ A custom React hook for completing the Zero-Knowledge Login process and managing
 ### completeZkLogin
 
 ```typescript
-completeZkLogin({urlZkProver, generateSalt}: CompleteZkLoginParams): Promise<CompleteZkLoginReturn | undefined>
+completeZkLogin({urlZkProver, generateSalt}: CompleteZkLoginParams): Promise<CompleteZkLoginReturn>
 ```
 
-Completes the Zero-Knowledge Login process.
+Completes the Zero-Knowledge Login process. (Not needed if using useZkLogin hook)
 
 **Parameters:**
 
@@ -284,3 +287,18 @@ type CompleteZkLoginReturn = {
 	accounts: AccountData[]; // List of user accounts
   } | undefined;
 ```
+<a name="resources"></a>
+
+# Resources
+
+## Docs
+
+Official documentation: https://docs.sui.io/concepts/cryptography/zklogin
+
+## Examples
+
+https://github.com/juzybits/polymedia-zklogin-demo
+
+https://github.com/jovicheng/sui-zklogin-demo
+
+
