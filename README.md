@@ -4,7 +4,7 @@ A custom React hook for seamless zkLogin integration on Sui. Simplifies authenti
 
 This project is built upon the following demos: ([Demo A](https://github.com/juzybits/polymedia-zklogin-demo), [Demo B](https://github.com/jovicheng/sui-zklogin-demo)), and the official [documentation](https://docs.sui.io/concepts/cryptography/zklogin).
 
-## Table of Contents
+### Table of Contents
 
 1. [Installation](#install)
 2. [Usage](#usage)
@@ -16,7 +16,7 @@ This project is built upon the following demos: ([Demo A](https://github.com/juz
 
 <a name="install"></a>
 
-# Installation
+## Installation
 
 ```cmd
 npm install use-sui-zklogin @mysten/sui jwt-decode
@@ -24,7 +24,7 @@ npm install use-sui-zklogin @mysten/sui jwt-decode
 
 <a name="usage"></a>
 
-# Usage
+## Usage
 
 ```Javascript
 import { useZkLogin, beginZkLogin } from 'use-sui-zklogin';
@@ -66,15 +66,15 @@ const MyComponent = () => {
 ```
 <a name="documentation"></a>
 
-# Documentation
+## Documentation
 
 This documentation describes the types and functions available for implementing Zero-Knowledge (ZK) Login functionality for Sui blockchain authentication.
 
 <a name="functions"></a>
 
-## Functions
+### Functions
 
-### beginZkLogin
+#### beginZkLogin
 
 ```typescript
 beginZkLogin({ suiClient, provider, providersConfig, authParams }: BeginZkLoginParams): Promise<void>
@@ -102,7 +102,7 @@ Initiates the Zero-Knowledge Login flow.
 
 - Error if the login initiation process fails
 
-### useZkLogin
+#### useZkLogin
 
 ```typescript
 useZkLogin({urlZkProver, generateSalt}: CompleteZkLoginParams): UseZkLoginReturn
@@ -125,7 +125,7 @@ A custom React hook for completing the Zero-Knowledge Login process and managing
 | address | `string` | User's Sui address |
 | accounts | `AccountData` | Array of user account data |
 
-### completeZkLogin
+#### completeZkLogin
 
 ```typescript
 completeZkLogin({urlZkProver, generateSalt}: CompleteZkLoginParams): Promise<CompleteZkLoginReturn>
@@ -159,7 +159,7 @@ Completes the Zero-Knowledge Login process. (Not needed if using useZkLogin hook
 
 - Error if the login completion process fails
 
-### signOut
+#### signOut
 
 ```typescript
 signOut(): void
@@ -170,7 +170,7 @@ Signs out the current user from the ZK login session.
 - Clears all account data
 - Resets login state
 
-### clearAccount
+#### clearAccount
 
 ```typescript
 clearAccount(accountAddr: string): void
@@ -186,7 +186,7 @@ Clears a specific account from the stored accounts.
 
 <a name="errors"></a>
 
-## Error Handling
+### Error Handling
 
 All asynchronous functions in this library may throw errors that should be handled appropriately in your application. Common error scenarios include:
 
@@ -197,9 +197,9 @@ All asynchronous functions in this library may throw errors that should be handl
 
 <a name="types"></a>
 
-## Types
+### Types
 
-### ProviderConfig
+#### ProviderConfig
 
 Map of provider configurations:
 
@@ -207,7 +207,7 @@ Map of provider configurations:
 type ProviderConfig = Partial<Record<OpenIdProvider, OpenIdConfig>>;
 ```
 
-### OpenIdProvider
+#### OpenIdProvider
 
 Supported OAuth identity providers:
 
@@ -222,7 +222,7 @@ type OpenIdProvider =
 	| 'microsoft';
 ```
 
-### OpenIdConfig
+#### OpenIdConfig
 
 Configuration for OAuth provider settings:
 
@@ -234,7 +234,7 @@ type OpenIdConfig = {
 };
 ```
 
-### OpenIdAuthParams
+#### OpenIdAuthParams
 
 Optional OAuth authentication parameters:
 
@@ -246,7 +246,7 @@ type OpenIdAuthParams = {
 };
 ```
 
-### AccountData
+#### AccountData
 
 User account information:
 
@@ -265,7 +265,7 @@ type AccountData = {
 };
 ```
 
-### UseZkLoginReturn
+#### UseZkLoginReturn
 
 Return type for the useZkLogin hook:
 
@@ -277,7 +277,7 @@ type UseZkLoginReturn = {
 };
 ```
 
-### CompleteZkLoginReturn
+#### CompleteZkLoginReturn
 
 Return type for the completeZkLogin function:
 
@@ -289,13 +289,13 @@ type CompleteZkLoginReturn = {
 ```
 <a name="resources"></a>
 
-# Resources
+## Resources
 
-## Docs
+### Docs
 
 Official documentation: https://docs.sui.io/concepts/cryptography/zklogin
 
-## Examples
+### Examples
 
 https://github.com/juzybits/polymedia-zklogin-demo
 
