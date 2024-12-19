@@ -1,6 +1,6 @@
 # use-sui-zklogin
 
-A custom React hook for seamless zkLogin integration on Sui. Simplifies authentication workflows by managing account retrieval, signature generation, and address resolution with zero-knowledge (zk) proofs.
+React hook for seamless zkLogin integration on Sui. Simplifies authentication workflows by managing account retrieval, signature generation, and address resolution with zero-knowledge (zk) proofs.
 
 This project is built upon the following demos: ([Demo A](https://github.com/juzybits/polymedia-zklogin-demo), [Demo B](https://github.com/jovicheng/sui-zklogin-demo)), and the official [documentation](https://docs.sui.io/concepts/cryptography/zklogin).
 
