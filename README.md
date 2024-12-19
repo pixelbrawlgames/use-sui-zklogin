@@ -205,7 +205,7 @@ All asynchronous functions in this library may throw errors that should be handl
 Map of provider configurations:
 
 ```typescript
-type ProviderConfig = Partial<Record<OpenIdProvider, OpenIdConfig>>;
+ProviderConfig = Partial<Record<OpenIdProvider, OpenIdConfig>>;
 ```
 
 #### OpenIdProvider
@@ -213,7 +213,7 @@ type ProviderConfig = Partial<Record<OpenIdProvider, OpenIdConfig>>;
 Supported OAuth identity providers:
 
 ```typescript
-type OpenIdProvider =
+OpenIdProvider =
 	| 'google'
 	| 'facebook'
 	| 'twitch'
@@ -228,7 +228,7 @@ type OpenIdProvider =
 Configuration for OAuth provider settings:
 
 ```typescript
-type OpenIdConfig = {
+OpenIdConfig = {
 	authUrl: string; // OAuth authorization URL
 	clientId: string; // OAuth client ID
 	extraParams?: Record<string, string>; // Additional URL parameters
@@ -240,7 +240,7 @@ type OpenIdConfig = {
 Optional OAuth authentication parameters:
 
 ```typescript
-type OpenIdAuthParams = {
+OpenIdAuthParams = {
 	redirect_uri?: string; // OAuth redirect URI
 	response_type?: string; // OAuth response type
 	scope?: string; // OAuth scope permissions
@@ -252,7 +252,7 @@ type OpenIdAuthParams = {
 User account information:
 
 ```typescript
-type AccountData = {
+AccountData = {
 	provider: OpenIdProvider; // OAuth provider used
 	userAddr: string; // User's Sui address
 	zkProofs: any; // Zero-knowledge proofs
@@ -271,7 +271,7 @@ type AccountData = {
 Return type for the useZkLogin hook:
 
 ```typescript
-type UseZkLoginReturn = {
+UseZkLoginReturn = {
 	isLoaded: boolean; // Loading state
 	address: string; // User's Sui address
 	accounts: AccountData[]; // List of user accounts
@@ -283,10 +283,10 @@ type UseZkLoginReturn = {
 Return type for the completeZkLogin function:
 
 ```typescript
-type CompleteZkLoginReturn = {
+CompleteZkLoginReturn = {
 	address: string; // User's Sui address
 	accounts: AccountData[]; // List of user accounts
-  } | undefined;
+} | undefined;
 ```
 <a name="resources"></a>
 
