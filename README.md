@@ -6,7 +6,10 @@ React hook for seamless zkLogin integration on Sui. Simplifies authentication wo
 
 1. [Installation](#install)
 2. [Usage](#usage)
-3. [Examples](#examples)
+3. [Documentation](#documentation)
+   - [Functions](#functions)
+   - [Error handling](#errors)
+   - [Types](#types)
 
 <a name="install"></a>
 
@@ -21,106 +24,69 @@ npm install use-sui-zklogin @mysten/sui jwt-decode
 ### Usage
 
 ```Javascript
-import {
-	useZkLogin,
-	beginZkLogin,
-} from 'use-sui-zklogin';
-import type { OpenIdProvider } from 'use-sui-zklogin';
+import { useZkLogin, beginZkLogin } from 'use-sui-zklogin';
+import type { OpenIdProvider, ProviderConfig } from 'use-sui-zklogin';
+
+// Centralize provider configuration
+const providersConfig:ProviderConfig = {
+	google: {
+		authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+		clientId: 'CLIENT_ID',
+	},
+	// Add more providers here if needed
+};
 
 const MyComponent = () => {
 	const { isLoaded, address, accounts } = useZkLogin({
 		urlZkProver: 'https://prover-dev.mystenlabs.com/v1',
-		generateSalt: /* Your salt generator promise */,
+		generateSalt: async () => {
+			// Replace with your salt generation logic
+			return { salt: Date.now() };
+		},
 	});
 
+	// Handle ZK login with the selected provider
 	const handleZkLogin = async (provider: OpenIdProvider) => {
 		await beginZkLogin({
 			suiClient: /* Your Sui Client */,
 			provider,
-			providersConfig:{
-                google: {
-                    authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
-                    clientId: 'CLIENT_ID',
-                },
-                // ...
-            },
+			providersConfig,
 		});
 	};
 
 	return (
-        <button onClick={() => handleZkLogin('google')}>
-            Sign in with Google
-        </button>
-    );
+		<button onClick={() => handleZkLogin('google')} disabled={!isLoaded}>
+			{isLoaded ? 'Sign in with Google' : 'Loading...'}
+		</button>
+	);
 };
 ```
+<a name="documentation"></a>
 
-# ZK Login Documentation
+# Documentation
 
 This documentation describes the types and functions available for implementing Zero-Knowledge (ZK) Login functionality for Sui blockchain authentication.
 
+<a name="functions"></a>
+
 ## Functions
-
-### useZkLogin
-
-```typescript
-useZkLogin(params: CompleteZkLoginParams): UseZkLoginReturn
-```
-
-A custom React hook for managing ZK login state.
-
-**Parameters:**
-
-- `urlZkProver`: URL of the Zero-Knowledge proof generation service
-- `generateSalt`: Function to generate a unique user salt
-  - Accepts an optional parameter
-  - Returns a Promise resolving to `{ salt: number }`
-
-**Returns:**
-
-- Object containing:
-  - `isLoaded`: Boolean indicating if login state is loaded
-  - `address`: User's Sui address
-  - `accounts`: Array of user account data
-
-### signOut
-
-```typescript
-signOut(): void
-```
-
-Signs out the current user from the ZK login session.
-
-- Clears all account data
-- Resets login state
-- Notifies subscribers of the change
-
-### clearAccount
-
-```typescript
-clearAccount(accountAddr: string): void
-```
-
-Removes a specific account from the stored accounts.
-
-**Parameters:**
-
-- `accountAddr`: Sui address of the account to remove
 
 ### beginZkLogin
 
 ```typescript
-beginZkLogin(params: BeginZkLoginParams): Promise<void>
+beginZkLogin({ suiClient, provider, providersConfig, authParams }: BeginZkLoginParams): Promise<void>
 ```
 
 Initiates the Zero-Knowledge Login flow.
 
 **Parameters:**
 
-- `suiClient`: Sui blockchain client for system state queries
-- `provider`: Selected OpenID identity provider
-- `providersConfig`: Configuration map for OpenID providers
-- `authParams`: Additional OAuth parameters (optional)
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| suiClient | `SuiClient` | Sui blockchain client for system state queries |
+| provider | `OpenIdProvider` | Selected OpenID identity provider |
+| providersConfig | `ProviderConfig` | Configuration map for OpenID providers |
+| authParams | `OpenIdAuthParams` | Additional OAuth parameters (optional) |
 
 **Process:**
 
@@ -133,23 +99,50 @@ Initiates the Zero-Knowledge Login flow.
 
 - Error if the login initiation process fails
 
+### useZkLogin
+
+```typescript
+useZkLogin({urlZkProver, generateSalt}: CompleteZkLoginParams): UseZkLoginReturn
+```
+
+A custom React hook for completing the Zero-Knowledge Login process and managing ZK login state.
+
+**Parameters:**
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| urlZkProver | `string` | URL of the Zero-Knowledge proof generation service |
+| generateSalt | () => Promise<{salt:number}> | Function to generate a unique user salt |
+
+**Returns:**
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| isLoaded | `boolean` | Boolean indicating if login state is loaded |
+| address | `string` | User's Sui address |
+| accounts | `AccountData` | Array of user account data |
+
 ### completeZkLogin
 
 ```typescript
-completeZkLogin(params: CompleteZkLoginParams): Promise<CompleteZkLoginReturn>
+completeZkLogin({urlZkProver, generateSalt}: CompleteZkLoginParams): Promise<CompleteZkLoginReturn | undefined>
 ```
 
 Completes the Zero-Knowledge Login process.
 
 **Parameters:**
 
-- Configuration and salt generation parameters
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| urlZkProver | `string` | URL of the Zero-Knowledge proof generation service |
+| generateSalt | () => Promise<{salt:number}> | Function to generate a unique user salt |
 
 **Returns:**
 
-- Object containing:
-  - `accounts`: Array of saved user accounts
-  - `address`: User's Sui address
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| accounts | `AccountData[]` | Array of saved user accounts |
+| address | `string` | User's Sui address |
 
 **Process:**
 
@@ -163,7 +156,53 @@ Completes the Zero-Knowledge Login process.
 
 - Error if the login completion process fails
 
+### signOut
+
+```typescript
+signOut(): void
+```
+
+Signs out the current user from the ZK login session.
+
+- Clears all account data
+- Resets login state
+
+### clearAccount
+
+```typescript
+clearAccount(accountAddr: string): void
+```
+
+Clears a specific account from the stored accounts.
+
+**Parameters:**
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| accountAddr | `string` | Sui address of the account to clear |
+
+<a name="errors"></a>
+
+## Error Handling
+
+All asynchronous functions in this library may throw errors that should be handled appropriately in your application. Common error scenarios include:
+
+- Network connectivity issues
+- Invalid OAuth provider responses
+- Failed proof generation
+- Invalid parameters
+
+<a name="types"></a>
+
 ## Types
+
+### ProviderConfig
+
+Map of provider configurations:
+
+```typescript
+type ProviderConfig = Partial<Record<OpenIdProvider, OpenIdConfig>>;
+```
 
 ### OpenIdProvider
 
@@ -188,7 +227,7 @@ Configuration for OAuth provider settings:
 type OpenIdConfig = {
 	authUrl: string; // OAuth authorization URL
 	clientId: string; // OAuth client ID
-	extraParams?: Record; // Additional URL parameters
+	extraParams?: Record<string, string>; // Additional URL parameters
 };
 ```
 
@@ -201,27 +240,6 @@ type OpenIdAuthParams = {
 	redirect_uri?: string; // OAuth redirect URI
 	response_type?: string; // OAuth response type
 	scope?: string; // OAuth scope permissions
-};
-```
-
-### ProviderConfig
-
-Map of provider configurations:
-
-```typescript
-type ProviderConfig = Partial<Record<OpenIdProvider, OpenIdConfig>>;
-```
-
-### SetupData
-
-Data required for ZK login setup:
-
-```typescript
-type SetupData = {
-	provider: OpenIdProvider; // Selected OAuth provider
-	maxEpoch: number; // Maximum epoch number
-	randomness: string; // Random value for proof generation
-	ephemeralPrivateKey: string; // Temporary private key
 };
 ```
 
@@ -256,41 +274,13 @@ type UseZkLoginReturn = {
 };
 ```
 
-## Error Handling
+### CompleteZkLoginReturn
 
-All asynchronous functions in this library may throw errors that should be handled appropriately in your application. Common error scenarios include:
-
-- Network connectivity issues
-- Invalid OAuth provider responses
-- Failed proof generation
-- Invalid parameters
-
-## Usage Example
+Return type for the completeZkLogin function:
 
 ```typescript
-// Initialize the ZK login hook
-const { isLoaded, address, accounts } = useZkLogin({
-	urlZkProver: 'https://prover-url.example',
-	generateSalt: async () => ({ salt: Math.random() }),
-});
-
-// Begin login process
-await beginZkLogin({
-	suiClient,
-	provider: 'google',
-	providersConfig: {
-		google: {
-			authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
-			clientId: 'your-client-id',
-		},
-	},
-});
-
-// Complete login after OAuth redirect
-const result = await completeZkLogin({
-	// ... completion parameters
-});
-
-// Sign out
-signOut();
+type CompleteZkLoginReturn = {
+	address: string; // User's Sui address
+	accounts: AccountData[]; // List of user accounts
+  } | undefined;
 ```
