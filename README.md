@@ -19,7 +19,10 @@ This project is built upon the following demos: ([Demo A](https://github.com/juz
 ## Installation
 
 ```cmd
-npm install use-sui-zklogin @mysten/sui jwt-decode
+npm install use-sui-zklogin
+```
+```cmd
+yarn add use-sui-zklogin
 ```
 
 <a name="usage"></a>
