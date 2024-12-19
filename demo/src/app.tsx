@@ -1,18 +1,12 @@
-import { FC, useState } from 'react';
-import {
-	useZkLogin,
-	beginZkLogin,
-	signOut,
-	clearAccount,
-} from 'use-sui-zklogin';
-import type {
-	OpenIdProvider,
-	ProviderConfig,
-	AccountData,
-} from 'use-sui-zklogin';
+import { useState } from 'react';
+
+import { useZkLogin, beginZkLogin, signOut } from 'use-sui-zklogin';
+import type { OpenIdProvider, ProviderConfig } from 'use-sui-zklogin';
 import { useSuiClient } from '@mysten/dapp-kit';
+
 import GoogleButton from './components/ui/google-btn';
 import Loader from './components/ui/loader';
+import AccountCard from './components/ui/account-card';
 
 import styles from './app.module.css';
 
@@ -39,8 +33,7 @@ const App = () => {
 	const suiClient = useSuiClient();
 	const { isLoaded, address, accounts } = useZkLogin({
 		urlZkProver: 'https://prover-dev.mystenlabs.com/v1',
-		generateSalt: () =>
-			new Promise<{ salt: number }>((resolve) => resolve({ salt: 123456789 })),
+		generateSalt: async () => ({ salt: 123456789 }),
 	});
 
 	console.log('Status:', isLoaded, address, accounts);
@@ -62,6 +55,7 @@ const App = () => {
 			<Loader loading={!isLoaded || loading} />
 			<div className={styles.header}>
 				<h1 className={styles.title}>useSuiZkLogin Demo</h1>
+				<h2 className={styles.subtitle}>devNet</h2>
 			</div>
 			<div className={styles.content}>
 				<div className={styles.box}>
@@ -77,36 +71,6 @@ const App = () => {
 						Clear All
 					</div>
 				) : null}
-			</div>
-		</div>
-	);
-};
-
-interface P {
-	account: AccountData;
-}
-const AccountCard: FC<P> = ({ account }) => {
-	return (
-		<div className={styles.accountCard} key={account.sub}>
-			<div className={styles.info}>
-				<span>
-					Provider:{' '}
-					{`${account.provider.slice(0, 1).toUpperCase()}${account.provider.slice(1)}`}
-				</span>
-				<span>
-					Address:{' '}
-					<a
-						href={`https://devnet.suivision.xyz/account/${account.userAddr}`}
-						target="_blank"
-					>{`${account.userAddr.slice(0, 6)}...${account.userAddr.slice(-4)}`}</a>
-				</span>
-				<span>User ID: {account.sub}</span>
-			</div>
-			<div
-				className={styles.clearBtn}
-				onClick={() => clearAccount(account.userAddr)}
-			>
-				Clear
 			</div>
 		</div>
 	);

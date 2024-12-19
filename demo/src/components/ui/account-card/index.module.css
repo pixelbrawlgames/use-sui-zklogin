@@ -1,0 +1,25 @@
+.accountCard {
+	background-color: #000;
+	color: #fff;
+	flex-direction: column;
+	padding: 15px;
+	display: flex;
+	border-radius: 8px;
+	gap: 15px;
+}
+.info {
+	text-align: left;
+	display: flex;
+	gap: 5px;
+	flex-direction: column;
+}
+.clearBtn {
+	background-color: red;
+	width: fit-content;
+	padding: 5px 10px;
+	border-radius: 4px;
+	margin: 0 auto;
+	cursor: pointer;
+	color: #fff;
+	font-weight: 600;
+}
