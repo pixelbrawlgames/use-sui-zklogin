@@ -7,20 +7,24 @@
 		"dev:demo": "vite demo",
 		"build:demo": "vite build demo",
 		"start:demo": "vite preview demo",
-		"prepare": "npx husky install"
+		"prepare": "npx husky install",
+		"predeploy": "npm --prefix ./demo npm run build",
+		"deploy": "gh-pages -d demo/dist"
 	},
 	"workspaces": [
 		"package",
 		"demo"
 	],
+	"homepage": "https://pixelbrawlgames.github.io/use-sui-zklogin",
 	"devDependencies": {
-		"vite": "^4.0.0",
-		"typescript": "^5.0.0",
-		"tsup": "^7.0.0",
-		"eslint": "^8.0.0",
-		"prettier": "^3.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.49.0",
+		"eslint": "^8.0.0",
+		"eslint-config-prettier": "^8.6.0",
+		"gh-pages": "^6.2.0",
 		"lint-staged": "^13.1.0",
-		"eslint-config-prettier": "^8.6.0"
+		"prettier": "^3.0.0",
+		"tsup": "^7.0.0",
+		"typescript": "^5.0.0",
+		"vite": "^4.0.0"
 	}
 }
