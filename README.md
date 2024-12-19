@@ -77,7 +77,7 @@ This documentation describes the types and functions available for implementing 
 #### beginZkLogin
 
 ```typescript
-beginZkLogin({ suiClient, provider, providersConfig, authParams }: BeginZkLoginParams): Promise<void>
+beginZkLogin({ suiClient, provider, providersConfig, authParams, maxEpoch }: BeginZkLoginParams): Promise<void>
 ```
 
 Initiates the Zero-Knowledge Login flow.
@@ -90,6 +90,7 @@ Initiates the Zero-Knowledge Login flow.
 | provider | `OpenIdProvider` | Selected OpenID identity provider |
 | providersConfig | `ProviderConfig` | Configuration map for OpenID providers |
 | authParams | `OpenIdAuthParams` | Additional OAuth parameters (optional) |
+| maxEpoch | `number` | Maximum epoch number for time-based validation (optional) |
 
 **Process:**
 
