@@ -1,5 +1,6 @@
 import { jwtToAddress } from '@mysten/sui/zklogin';
 import * as utils from './utils';
+import { AccountData } from './models';
 
 /**
  * Parameters required to complete the ZK Login process
@@ -8,6 +9,11 @@ export interface CompleteZkLoginParams {
 	urlZkProver: string; // URL of the Zero-Knowledge proof generation service
 	generateSalt: (options?: any) => Promise<{ salt: number }>; // Function to generate a unique user salt
 }
+
+type CompleteZkLoginReturn = {
+	accounts: AccountData[];
+	address: string;
+};
 
 /**
  * Completes the Zero-Knowledge (ZK) Login process for Sui blockchain authentication
@@ -26,7 +32,7 @@ export interface CompleteZkLoginParams {
 export const completeZkLogin = async ({
 	urlZkProver,
 	generateSalt,
-}: CompleteZkLoginParams) => {
+}: CompleteZkLoginParams): Promise<CompleteZkLoginReturn | undefined> => {
 	try {
 		// Retrieve and decode the JWT token obtained during the initial login process
 		// Reference: https://docs.sui.io/concepts/cryptography/zklogin#decoding-jwt

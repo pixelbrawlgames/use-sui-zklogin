@@ -1,4 +1,9 @@
-import { SetupData, AccountData, TJwtPayload } from '../models';
+import {
+	SetupData,
+	AccountData,
+	TJwtPayload,
+	BlockchainAddress,
+} from '../models';
 import { SETUP_DATA_KEY, ACCOUNT_DATA_KEY } from '../const';
 
 /* Setup data utils */
@@ -35,7 +40,7 @@ export const saveAccount = (
 ): AccountData[] => {
 	const account: AccountData = {
 		provider: setupData.provider,
-		userAddr,
+		userAddr: userAddr as BlockchainAddress,
 		zkProofs,
 		ephemeralPrivateKey: setupData.ephemeralPrivateKey,
 		userSalt: userSalt.toString(),

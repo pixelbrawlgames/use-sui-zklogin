@@ -61,6 +61,11 @@ const fetchZkLoginData = async (options: CompleteZkLoginParams) => {
 	}
 };
 
+type UseZkLoginReturn = {
+	isLoaded: boolean;
+	address: string;
+	accounts: AccountData[];
+};
 /**
  * Custom hook for managing ZK login state
  * @param urlZkProver - The URL of the Zero-Knowledge proof generation service
@@ -70,7 +75,7 @@ const fetchZkLoginData = async (options: CompleteZkLoginParams) => {
 export const useZkLogin = ({
 	urlZkProver,
 	generateSalt,
-}: CompleteZkLoginParams) => {
+}: CompleteZkLoginParams): UseZkLoginReturn => {
 	// Force re-render mechanism
 	const [, forceRender] = useState(0);
 
@@ -112,6 +117,9 @@ export const signOut = () => {
 	notifySubscribers();
 };
 
+/**
+ * Clears the account corresponding to the specified address
+ */
 export const clearAccount = (accountAddr: string) => {
 	accounts = utils.session.clearAccount(accountAddr);
 	address = accounts.length ? accounts[accounts.length - 1].userAddr : '';
