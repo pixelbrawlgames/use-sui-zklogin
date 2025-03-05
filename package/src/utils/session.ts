@@ -7,9 +7,12 @@ import {
 } from '../models';
 import { SETUP_DATA_KEY, ACCOUNT_DATA_KEY } from '../const';
 
+const _localStorage =
+	typeof window !== 'undefined' && localStorage ? localStorage : null;
+
 // Saves setup data to session storage after converting to JSON string
 export const saveSetupData = (data: SetupData, storageKey = SETUP_DATA_KEY) => {
-	localStorage.setItem(storageKey, JSON.stringify(data));
+	if (_localStorage) _localStorage.setItem(storageKey, JSON.stringify(data));
 };
 
 // Loads and parses setup data from session storage
@@ -17,7 +20,7 @@ export const saveSetupData = (data: SetupData, storageKey = SETUP_DATA_KEY) => {
 export const loadSetupData = (
 	storageKey = SETUP_DATA_KEY
 ): SetupData | null => {
-	const dataRaw = localStorage.getItem(storageKey);
+	const dataRaw = _localStorage ? _localStorage.getItem(storageKey) : null;
 	if (!dataRaw) {
 		return null;
 	}
@@ -27,7 +30,7 @@ export const loadSetupData = (
 
 // Removes setup data from session storage
 export const clearSetupData = (storageKey = SETUP_DATA_KEY) => {
-	localStorage.removeItem(storageKey);
+	if (_localStorage) _localStorage.removeItem(storageKey);
 };
 
 // Interface defining required parameters for saving an account
@@ -67,14 +70,15 @@ export const saveAccount = (
 
 	// Prepend new account to existing accounts and save
 	const newAccounts = [account, ...loadAccounts()];
-	localStorage.setItem(storageKey, JSON.stringify(newAccounts));
+	if (_localStorage)
+		_localStorage.setItem(storageKey, JSON.stringify(newAccounts));
 	return newAccounts;
 };
 
 // Loads all accounts from session storage
 // Returns empty array if no accounts exist
 export const loadAccounts = (storageKey = ACCOUNT_DATA_KEY): AccountData[] => {
-	const dataRaw = localStorage.getItem(storageKey);
+	const dataRaw = _localStorage ? _localStorage.getItem(storageKey) : null;
 	if (!dataRaw) {
 		return [];
 	}
@@ -84,7 +88,7 @@ export const loadAccounts = (storageKey = ACCOUNT_DATA_KEY): AccountData[] => {
 
 // Removes all accounts from session storage
 export const clearAccounts = (storageKey = ACCOUNT_DATA_KEY) => {
-	localStorage.removeItem(storageKey);
+	if (_localStorage) _localStorage.removeItem(storageKey);
 };
 
 // Removes a specific account by address and returns updated accounts array
@@ -95,6 +99,7 @@ export const clearAccount = (
 	const accounts = loadAccounts(storageKey).filter(
 		(account) => account.userAddr !== accountAddr
 	);
-	localStorage.setItem(storageKey, JSON.stringify(accounts));
+	if (_localStorage)
+		_localStorage.setItem(storageKey, JSON.stringify(accounts));
 	return accounts;
 };
